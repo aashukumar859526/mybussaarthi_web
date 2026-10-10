@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyBusSaarthi - Updates</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: #f0f2f5; color: #333; overflow-x: hidden; }
+        
+        /* Animations */
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes driveBus {
+            0% { transform: translateX(-30px); opacity: 0; }
+            70% { transform: translateX(10px); }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes popIn {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        header { background: #1e3a8a; color: white; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; position: relative; }
+        .header-title h1 { font-size: 1.4rem; }
+        .bus-icon { display: inline-block; animation: driveBus 1s ease-out forwards; }
+        .header-title p { font-size: 0.85rem; opacity: 0.9; animation: popIn 1.2s ease-out forwards; }
+        
+        .menu-btn { background: none; border: none; color: white; font-size: 1.8rem; cursor: pointer; padding: 0 10px; font-weight: bold; }
+        .dropdown { display: none; position: absolute; right: 15px; top: 65px; background: white; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); overflow: hidden; z-index: 100; min-width: 180px; animation: popIn 0.2s ease-out; }
+        .dropdown a { display: block; padding: 14px 16px; color: #333; text-decoration: none; border-bottom: 1px solid #f0f0f0; font-size: 0.95rem; font-weight: 600; }
+        .dropdown a:last-child { border-bottom: none; }
+        .dropdown a:hover { background: #f0f2f5; color: #1e3a8a; }
+        
+        .container { max-width: 600px; margin: 20px auto; padding: 0 15px; animation: slideUpFade 0.6s ease-out; }
+        .page-title { margin: 0 0 15px; color: #1e3a8a; border-bottom: 2px solid #cbd5e1; padding-bottom: 8px; }
+        
+        .update-card { background: white; border-radius: 10px; padding: 20px; margin-bottom: 15px; border-left: 5px solid #2563eb; box-shadow: 0 2px 5px rgba(0,0,0,0.1); animation: slideUpFade 0.5s ease-out backwards; }
+        /* Har card thode-thode delay ke baad aayega */
+        .update-card:nth-child(1) { animation-delay: 0.1s; }
+        .update-card:nth-child(2) { animation-delay: 0.2s; }
+        .update-card:nth-child(3) { animation-delay: 0.3s; }
+
+        .version { font-size: 1.2rem; font-weight: bold; color: #1e3a8a; display: flex; justify-content: space-between; align-items: center; }
+        .date { font-size: 0.85rem; color: #666; font-weight: normal; margin-top: 5px; }
+        .features { margin-top: 15px; list-style-type: none; }
+        .features li { margin-bottom: 8px; padding-left: 20px; position: relative; font-size: 0.95rem; }
+        .features li::before { content: "✓"; color: #059669; position: absolute; left: 0; font-weight: bold; }
+        .badge { background: #dc2626; color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; animation: popIn 0.5s ease-out backwards; animation-delay: 0.5s; }
+        
+        .download-btn { display: block; width: 100%; text-align: center; background: #059669; color: white; padding: 14px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s; }
+        .download-btn:active { transform: scale(0.95); }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-title">
+            <h1><span class="bus-icon">🚌</span> MyBusSaarthi</h1>
+            <p>App Release Notes</p>
+        </div>
+        <button class="menu-btn" onclick="toggleMenu()">⋮</button>
+        <div class="dropdown" id="menuDropdown">
+            <a href="#" onclick="loadUpdates('passenger', 'Passenger App Updates'); return false;">🏠 Home (Passenger)</a>
+            <a href="#" onclick="loadUpdates('staff', 'Staff App Updates'); return false;">👨‍✈️ Staff Updates</a>
+            <a href="#" onclick="loadUpdates('admin', 'Admin Panel Updates'); return false;">⚙️ Admin Updates</a>
+        </div>
+    </header>
+    
+    <div class="container">
+        <a href="#" class="download-btn" onclick="alert('Downloading latest APK...')">⬇️ Download Latest App</a>
+        <h2 class="page-title" id="displayTitle">Passenger App Updates</h2>
+        <div id="updates-list"></div>
+    </div>
+
+    <script>
+        const updateData = {
+            "passenger": [
+                { "version": "v1.2", "date": "11 October 2026", "isNew": true, "features": ["Live Bus Tracking map add kiya gaya", "Seat selection bug fix kiya gaya"] },
+                { "version": "v1.1", "date": "15 September 2026", "isNew": false, "features": ["App me Dark Mode", "Digital Ticket QR Code"] }
+            ],
+            "staff": [
+                { "version": "v2.1", "date": "10 October 2026", "isNew": true, "features": ["Conductor ke liye naya QR Scanner", "Attendance lagane ka option add hua"] },
+                { "version": "v2.0", "date": "01 September 2026", "isNew": false, "features": ["Staff login bug fix kiya", "Ticket print speed badhai"] }
+            ],
+            "admin": [
+                { "version": "v3.0", "date": "05 October 2026", "isNew": true, "features": ["Daily Revenue Dashboard live", "Driver/Bus allocation tool update"] }
+            ]
+        };
+
+        function toggleMenu() {
+            const menu = document.getElementById('menuDropdown');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.matches('.menu-btn')) {
+                document.getElementById('menuDropdown').style.display = 'none';
+            }
+        }
+
+        function loadUpdates(role, title) {
+            document.getElementById('displayTitle').innerText = title;
+            const container = document.getElementById('updates-list');
+            container.innerHTML = '';
+            
+            const updates = updateData[role];
+            
+            if(!updates || updates.length === 0) {
+                container.innerHTML = '<p>No updates available.</p>';
+                return;
+            }
+
+            updates.forEach((up, index) => {
+                const newBadge = up.isNew ? '<span class="badge">NEW</span>' : '';
+                const featuresHtml = up.features.map(f => `<li>${f}</li>`).join('');
+                
+                // Har naye card ko thoda delay de rahe hain taaki animation ek ke baad ek aaye
+                container.innerHTML += `
+                    <div class="update-card" style="animation-delay: ${index * 0.15}s;">
+                        <div class="version">${up.version} ${newBadge}</div>
+                        <div class="date">Released: ${up.date}</div>
+                        <ul class="features">${featuresHtml}</ul>
+                    </div>
+                `;
+            });
+            
+            // Jab menu se category change ho toh menu band ho jaye
+            document.getElementById('menuDropdown').style.display = 'none';
+        }
+        
+        loadUpdates('passenger', 'Passenger App Updates');
+    </script>
+</body>
+</html>

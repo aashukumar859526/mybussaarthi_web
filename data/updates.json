@@ -1,0 +1,12 @@
+{
+  "passenger": [
+    { "version": "v1.2", "date": "11 October 2026", "isNew": true, "features": ["Live Bus Tracking map add kiya gaya", "UPI payments fast ho gaye hain"] },
+    { "version": "v1.1", "date": "15 September 2026", "isNew": false, "features": ["App me Dark Mode", "Digital Ticket QR Code"] }
+  ],
+  "staff": [
+    { "version": "v2.1 (Staff)", "date": "10 October 2026", "isNew": true, "features": ["Conductor ke liye naya QR Scanner", "Attendance lagane ka option add hua"] }
+  ],
+  "admin": [
+    { "version": "v3.0 (Admin)", "date": "05 October 2026", "isNew": true, "features": ["Daily Revenue Dashboard live", "Driver/Bus allocation tool update"] }
+  ]
+}
